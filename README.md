@@ -22,7 +22,9 @@ Un juego 2D desarrollado con JavaScript y el framework Phaser. Implementa contro
 JuegoJS/
 ├── img/                   # Assets gráficos
 │   ├── bola.png           # Sprite de la bola
-│   ├── mano1.png          # Sprite de juegador
+│   ├── flecha.png         # Sprite flecha para movimiento
+│   ├── mano1.png          # Sprite de juegador 1
+│   ├── mano2.png          # Sprite de juegador 2
 │   └── fondo.jpg          # Fondo del juego
 ├── index.html             # Página principal (HTML)
 ├── javascript.js          # Lógica del juego (Javascript)
