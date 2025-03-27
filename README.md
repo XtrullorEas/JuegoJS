@@ -44,4 +44,4 @@ JuegoJS/
 
 
 ## 📄 Licencia
-Este proyecto está bajo la licencia MIT. Ver archivo [License](LICENSE.md) para más detalles.
+Este proyecto está bajo la licencia MIT. Ver archivo [License](License.md) para más detalles.
