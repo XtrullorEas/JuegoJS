@@ -3,6 +3,7 @@ class Escena extends Phaser.Scene {
     preload() {
         this.load.image('fondo', 'img/fondo.jpg');
         this.load.spritesheet('bola', 'img/bola.png', { frameWidth: 100, frameHeight: 100 });
+        this.load.image('mano1', 'img/mano1.png')
     }
 
     create() {
@@ -17,6 +18,8 @@ class Escena extends Phaser.Scene {
         });
         this.bola.play('brillar');
 
+        this.mano1 = this.physics.add.sprite(70, 320, 'mano1');
+
         const velocidad = 500;
 
         let anguloInicial = Math.random() * Math.PI / 2 + Math.PI / 4;
@@ -30,6 +33,8 @@ class Escena extends Phaser.Scene {
 
         this.bola.setBounce(1);
         this.bola.setCollideWorldBounds(true);
+
+        this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     update() {
@@ -39,6 +44,12 @@ class Escena extends Phaser.Scene {
             this.bola.body.velocity.x *= -1;
         } else if (this.bola.y > config.height || this.bola.y < 0) {
             this.bola.body.velocity.y *= -1;
+        }
+
+        if (this.cursors.up.isDown) {
+            this.mano1.y = this.mano1.y - 5;
+        } else if (this.cursors.down.isDown) {
+            this.mano1.y = this.mano1.y + 5;
         }
     }
 }
