@@ -9,6 +9,12 @@ class Escena extends Phaser.Scene {
         this.load.image('mano1', 'img/mano1.png');
         this.load.image('mano2', 'img/mano2.png');
         this.load.image('leftbtn', 'img/flecha.png');
+
+        //cargar sonidos
+        this.load.audio('rebote', 'sounds/rebote.mp3'); // sonido de rebote
+        this.load.audio('punto', 'sounds/punto.mp3'); // sonido de punto
+
+
     }
 
     create() {
@@ -16,6 +22,10 @@ class Escena extends Phaser.Scene {
         this.input.addPointer();
         this.input.addPointer();
         this.input.addPointer();
+
+        // Crear sonidos
+        this.sonidoRebote = this.sound.add('rebote');
+        this.sonidoPunto = this.sound.add('punto');
 
         this.add.sprite(480, 320, 'fondo');
         this.bola = this.physics.add.sprite(480, 320, 'bola');
@@ -34,7 +44,7 @@ class Escena extends Phaser.Scene {
         this.mano1.body.immovable = true;
         this.bola.setBounce(10);
         this.mano1.setSize(60, 250);
-        this.physics.add.collider(this.bola, this.mano1);
+        this.physics.add.collider(this.bola, this.mano1, this.emitirSonidoRebote, null, this);
         this.mano1.setCollideWorldBounds(true);
 
         //Segundo jugador
@@ -42,7 +52,7 @@ class Escena extends Phaser.Scene {
         this.mano2.body.immovable = true;
         this.mano2.setBounce(10);
         this.mano2.setSize(60, 250);
-        this.physics.add.collider(this.bola, this.mano2);
+        this.physics.add.collider(this.bola, this.mano2, this.emitirSonidoRebote, null, this);
         this.mano2.setCollideWorldBounds(true);
 
         const velocidad = 500;
@@ -57,6 +67,10 @@ class Escena extends Phaser.Scene {
         this.bola.setBounce(1);
         this.bola.setCollideWorldBounds(true);
         this.physics.world.setBoundsCollision(false, false, true, true);
+
+        // Agregar evento para detectar cuando la bola rebota en los bordes
+        this.bola.body.onWorldBounds = true;
+        this.physics.world.on('worldbounds', this.emitirSonidoRebote, this);
 
         this.bola.body.velocity.x = vx;
         this.bola.body.velocity.y = vy;
@@ -87,11 +101,13 @@ class Escena extends Phaser.Scene {
         this.bola.rotation += 0.01;
 
         if (this.bola.x < 0 && this.alguienGano === false) {
+            this.sonidoPunto.play();
             alert('Jugador 2 ha ganado!');
             this.alguienGano = true;
             this.marcadorMano2.text = parseInt(this.marcadorMano2.text) + 1;
             this.colocarBola();
         } else if (this.bola.x > 960 && this.alguienGano === false) {
+            this.sonidoPunto.play();
             alert('Jugador 1 ha ganado!');
             this.alguienGano = true;
             this.marcadorMano1.text = parseInt(this.marcadorMano1.text) + 1;
@@ -116,16 +132,32 @@ class Escena extends Phaser.Scene {
 
     pintarMarcador() {
         this.marcadorMano1 = this.add.text(440, 75, '0', {
-            fontFamily: 'font1',
+            fontFamily: 'Arial, sans-serif',
             fontSize: 80,
-            color: '#ffffff',
+            fontStyle: 'bold',
+            color: '#ffff00',
+            stroke: '#000000',
+            strokeThickness: 6,
             align: 'right',
         }).setOrigin(1, 0);
         this.marcadorMano2 = this.add.text(520, 75, '0', {
-            fontFamily: 'font1',
+            fontFamily: 'Arial, sans-serif',
             fontSize: 80,
-            color: '#ffffff'
+            fontStyle: 'bold',
+            color: '#ffff00',
+            stroke: '#000000',
+            strokeThickness: 6
         });
+        
+        // Agregar crédito en la parte inferior
+        this.add.text(480, 620, "Elias Morote Loli", {
+            fontFamily: 'Arial, sans-serif',
+            fontSize: 20,
+            fontStyle: 'italic',
+            color: '#ffffff',
+            stroke: '#000000',
+            strokeThickness: 2
+        }).setOrigin(0.5, 1);
     }
 
     colocarBola() {
@@ -149,8 +181,8 @@ class Escena extends Phaser.Scene {
 
         this.bola.body.velocity.x = vx;
         this.bola.body.velocity.y = vy;
-        this.physics.add.collider(this.bola, this.mano1);
-        this.physics.add.collider(this.bola, this.mano2);
+        this.physics.add.collider(this.bola, this.mano1, this.emitirSonidoRebote, null, this);
+        this.physics.add.collider(this.bola, this.mano2, this.emitirSonidoRebote, null, this);
         this.alguienGano = false;
     }
 
@@ -174,6 +206,10 @@ class Escena extends Phaser.Scene {
         upbtn.on('pointerup', () => {
             player.setData('direccionVertical', 0);
         });
+    }
+
+    emitirSonidoRebote() {
+        this.sonidoRebote.play();
     }
 }
 
