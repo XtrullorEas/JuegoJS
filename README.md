@@ -6,7 +6,7 @@
 #### [See it Live](https://xtrulloreas.github.io/JuegoJS/)
 
 
-![Avance del Juego 2D](img/preview.gif)
+![Avance del Juego 2D](img/preview.mp4)
 
 Un juego 2D desarrollado con JavaScript y el framework Phaser. Implementa controles básicos, comportamientos de sprites y mecánicas de juego simples.  
 
@@ -21,10 +21,11 @@ Un juego 2D desarrollado con JavaScript y el framework Phaser. Implementa contro
 ```plaintext
 JuegoJS/
 ├── img/                   # Assets gráficos
-│   ├── bola.png           # Sprite de la bola
-│   ├── flecha.png         # Sprite flecha para movimiento
-│   ├── mano1.png          # Sprite de juegador 1
-│   ├── mano2.png          # Sprite de juegador 2
+│   ├── pelotas2.png       # Sprite de la bola
+│   ├── keys.png           # Sprite flecha para movimiento
+│   ├── jugador1.png       # Sprite de juegador 1
+│   ├── jugador2.png       # Sprite de juegador 2
+│   ├── preview.mp4        # Funcionamiento del Juego
 │   └── fondo.jpg          # Fondo del juego
 ├── index.html             # Página principal (HTML)
 ├── javascript.js          # Lógica del juego (Javascript)

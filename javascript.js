@@ -1,18 +1,18 @@
 class Escena extends Phaser.Scene {
     
     preload() {
-        this.load.image('fondo', 'img/fondo.jpg');
-        this.load.spritesheet('bola', 'img/bola.png', { 
-            frameWidth: 100, 
+        this.load.image('fondo', 'img/fondo.png');
+        this.load.spritesheet('bola', 'img/pelotas2.png', { 
+            frameWidth: 110, 
             frameHeight: 100 
         });
-        this.load.image('mano1', 'img/mano1.png');
-        this.load.image('mano2', 'img/mano2.png');
-        this.load.image('leftbtn', 'img/flecha.png');
+        this.load.image('mano1', 'img/jugador1.png');
+        this.load.image('mano2', 'img/jugador2.png');
+        this.load.image('leftbtn', 'img/keys.png');
 
         //cargar sonidos
-        this.load.audio('rebote', 'sounds/rebote.mp3'); // sonido de rebote
-        this.load.audio('punto', 'sounds/punto.mp3'); // sonido de punto
+        this.load.audio('rebote', 'sounds/batazo.mp3'); // sonido de rebote
+        this.load.audio('punto', 'sounds/celebracion.mp3'); // sonido de punto
 
 
     }
